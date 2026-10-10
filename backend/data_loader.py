@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
-import geopandas as gpd
 import pandas as pd
+import geopandas as gpd
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -37,9 +37,9 @@ def load_valuation_roll(path: str | Path) -> pd.DataFrame:
     df = df.rename(columns=rename_map)
 
     if "property_id" not in df.columns:
-        raise ValueError("The valuation roll must include a property_id column.")
+        raise ValueError("Valuation file must include property_id.")
     if "valuation_value" not in df.columns:
-        raise ValueError("The valuation roll must include a valuation_value column.")
+        raise ValueError("Valuation file must include valuation_value.")
 
     df["valuation_value"] = pd.to_numeric(df["valuation_value"], errors="coerce")
     df = df.dropna(subset=["valuation_value"]).copy()

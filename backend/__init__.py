@@ -1,1 +1,1 @@
-# Backend package for Lusaka property valuation system
+# Backend package for Lusaka AVM system

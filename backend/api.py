@@ -52,9 +52,9 @@ def predict_property(request: PropertyPredictionRequest):
     }
 
     df = pd.DataFrame([payload])
-    predicted = predict(model, df)
+    prediction = predict(model, df)[0]
 
     return {
-        "predicted_property_value": float(predicted[0]),
+        "predicted_property_value": float(prediction),
         "currency": "ZMW",
     }

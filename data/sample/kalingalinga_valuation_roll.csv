@@ -1,4 +1,4 @@
-# Sample Kalingalinga valuation roll showing 12 existing properties
+# Kalingalinga valuation roll with 12 current records
 property_id,latitude,longitude,valuation_value,property_type,land_area,building_area
 KAL_01,-15.3950,28.3230,760000,Residential,320,190
 KAL_02,-15.3960,28.3245,820000,Residential,350,210

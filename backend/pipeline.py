@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import geopandas as gpd
-import pandas as pd
 
 from backend.data_loader import load_valuation_roll, make_point_gdf
 from backend.features import build_model_dataset

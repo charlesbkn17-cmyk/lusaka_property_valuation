@@ -39,9 +39,9 @@ def train_model(df: pd.DataFrame, target_col: str = "valuation_value", save_path
     }
 
     if save_path is not None:
-        p = Path(save_path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        joblib.dump(model, p)
+        save_path = Path(save_path)
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(model, save_path)
 
     return model, metrics, feature_cols
 

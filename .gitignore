@@ -1,0 +1,92 @@
+# Kalingalinga GIS + ML Automated Valuation Model
+
+This repository implements a GIS and machine learning-based Automated Valuation Model (AVM) for property tax assessment in Lusaka, with a Kalingalinga valuation-gap workflow.
+
+## What this system does
+
+- Loads property valuation records for Kalingalinga
+- Loads spatial building footprints for the area
+- Identifies buildings that are not represented in the valuation roll
+- Detects and reports missing or unrecorded properties
+- Trains a Gradient Boosting regressor to predict property values
+- Provides a dashboard and API for predictions
+
+## Key result
+
+The system is designed so that in Kalingalinga, the total mapped properties can be greater than the 12 recorded valuation records. This is the valuation-gap detection logic the study requires.
+
+## Repository layout
+
+```text
+lusaka_property_valuation/
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── config.py
+├── dashboard.py
+├── backend/
+│   ├── __init__.py
+│   ├── data_loader.py
+│   ├── geospatial.py
+│   ├── features.py
+│   ├── model.py
+│   ├── pipeline.py
+│   └── api.py
+├── scripts/
+│   └── train_model.py
+├── data/
+│   └── sample/
+│       ├── kalingalinga_valuation_roll.csv
+│       ├── kalingalinga_buildings.geojson
+│       └── kalingalinga_amenities.geojson
+├── models/
+│   └── .gitkeep
+└── .venv/
+```
+
+## Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Train the model
+
+```bash
+python scripts/train_model.py
+```
+
+## Run the dashboard
+
+```bash
+streamlit run dashboard.py
+```
+
+## Run the API
+
+```bash
+uvicorn backend.api:app --reload
+```
+
+## Kalingalinga scenario
+
+The sample data is designed to mimic Kalingalinga with:
+- 12 recorded valuation properties
+- 19 mapped buildings in the study area
+- 7 missing/unmatched properties found through spatial comparison
+
+This means the system can report more than 12 properties in Kalingalinga after gap analysis.
+
+## Evaluation metrics
+
+The model reports:
+- RMSE
+- MAE
+- MAPE
+- R²
+
+## Notes
+
+This is a practical prototype for a thesis project. For live deployment, replace the sample data with actual council valuation roll data and building footprints.

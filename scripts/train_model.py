@@ -15,7 +15,7 @@ def main():
     )
 
     print("Training completed successfully.")
-    print(f"Records loaded: {len(dataset)}")
+    print(f"Rows in model dataset: {len(dataset)}")
     print(f"Model metrics: {metrics}")
     print(f"Saved model to: {MODEL_PATH}")
 

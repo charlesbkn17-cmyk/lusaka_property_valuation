@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 import joblib
 import pandas as pd
 import streamlit as st
@@ -8,20 +9,16 @@ import streamlit as st
 MODEL_PATH = Path(__file__).resolve().parent / "models" / "gradient_boosting_model.joblib"
 
 
-def load_model(model_path: Path = MODEL_PATH):
-    return joblib.load(model_path)
-
-
 def main():
-    st.set_page_config(page_title="Kalingalinga AVM Dashboard", layout="wide")
+    st.set_page_config(page_title="Lusaka AVM Dashboard", layout="wide")
     st.title("Lusaka Property Valuation Dashboard")
-    st.caption("Kalingalinga demonstration: 12 recorded properties and additional detected missing properties")
+    st.caption("Kalingalinga case study: 12 recorded properties and additional mapped properties detected by the system")
 
     if not MODEL_PATH.exists():
-        st.warning("No trained model found. Please run: python scripts/train_model.py")
+        st.warning("No trained model found. Run: python scripts/train_model.py")
         return
 
-    model = load_model(MODEL_PATH)
+    model = joblib.load(MODEL_PATH)
     st.success("Model loaded successfully.")
 
     st.subheader("Property prediction")
@@ -49,18 +46,17 @@ def main():
                 "distance_to_hospital": distance_to_hospital,
             }
         ])
-        prediction = model.predict(sample)[0]
-        st.metric("Estimated property value", f"ZMW {prediction:,.2f}")
+        pred = model.predict(sample)[0]
+        st.metric("Estimated property value", f"ZMW {pred:,.2f}")
 
     st.subheader("Kalingalinga valuation gap summary")
-    # Demo summary based on the sample dataset
     recorded_count = 12
     mapped_count = 19
     missing_count = mapped_count - recorded_count
     st.metric("Recorded valuation records", recorded_count)
     st.metric("Mapped buildings in area", mapped_count)
-    st.metric("Missing/unmatched properties", missing_count)
-    st.info("The system reports more than 12 total properties in Kalingalinga after comparing mapped buildings with the existing valuation roll.")
+    st.metric("Missing / unmatched properties", missing_count)
+    st.info("The system detects that the total number of properties in Kalingalinga is more than 12 after comparing mapped buildings to the official valuation roll.")
 
 
 if __name__ == "__main__":
