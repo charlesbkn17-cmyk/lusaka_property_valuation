@@ -1,0 +1,9 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"amenity_type": "school", "name": "Kalingalinga School"}, "geometry": {"type": "Point", "coordinates": [28.3275, -15.3968]}},
+    {"type": "Feature", "properties": {"amenity_type": "market", "name": "Kalingalinga Market"}, "geometry": {"type": "Point", "coordinates": [28.3320, -15.4010]}},
+    {"type": "Feature", "properties": {"amenity_type": "hospital", "name": "Clinic 1"}, "geometry": {"type": "Point", "coordinates": [28.3390, -15.4040]}},
+    {"type": "Feature", "properties": {"amenity_type": "road", "name": "Main Road"}, "geometry": {"type": "Point", "coordinates": [28.3300, -15.4000]}}
+  ]
+}

@@ -1,0 +1,14 @@
+# Sample Kalingalinga valuation roll showing 12 existing properties
+property_id,latitude,longitude,valuation_value,property_type,land_area,building_area
+KAL_01,-15.3950,28.3230,760000,Residential,320,190
+KAL_02,-15.3960,28.3245,820000,Residential,350,210
+KAL_03,-15.3965,28.3263,680000,Commercial,300,180
+KAL_04,-15.3973,28.3281,910000,Residential,400,240
+KAL_05,-15.3982,28.3292,740000,Residential,330,190
+KAL_06,-15.3990,28.3306,860000,Residential,360,220
+KAL_07,-15.3998,28.3317,710000,Residential,310,180
+KAL_08,-15.4006,28.3332,890000,Commercial,390,230
+KAL_09,-15.4012,28.3348,770000,Residential,340,200
+KAL_10,-15.4020,28.3359,930000,Residential,420,250
+KAL_11,-15.4028,28.3374,660000,Residential,290,170
+KAL_12,-15.4035,28.3388,840000,Residential,360,210
