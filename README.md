@@ -1,26 +1,72 @@
-# GIS and Machine Learning-Based Automated Valuation Model for Property Tax Assessment in Lusaka
+# Kalingalinga GIS + ML Automated Valuation Model
 
-This repository implements a practical GIS and machine learning-based Automated Valuation Model (AVM) for property tax assessment in Lusaka, with a specific valuation-gap workflow for Kalingalinga.
+This repository contains a working prototype for a GIS and Machine Learning-based Automated Valuation Model (AVM) for property tax assessment in Lusaka, with a Kalingalinga valuation-gap analysis workflow.
 
-The system is designed to:
-- load and clean property valuation records
-- load building footprints for a target area
-- perform spatial matching between valuation records and mapped buildings
-- identify properties that are missing from the valuation roll
-- estimate values for missing properties using a Gradient Boosting regressor
-- provide a dashboard for viewing recorded and missing properties
+## What the project demonstrates
 
-## Key feature: Kalingalinga valuation gap detection
+The project is designed to show that the number of properties in a given area can be greater than the number listed in the valuation record. In the sample Kalingalinga scenario:
 
-The demo dataset is prepared to simulate a real scenario in Kalingalinga:
-- 12 existing valuation records are loaded
-- more than 12 buildings are mapped in the study area
-- the system detects which buildings are not represented in the valuation roll
-- the missing properties are reported as additional properties in the area
+- 12 properties are recorded in the valuation roll
+- 19 building footprints are mapped in the study area
+- 7 properties are identified as missing or unmatched in the valuation roll
 
-This matches the requirement that the system should show more than 12 properties in Kalingalinga rather than only the original 12 records.
+This supports the valuation-gap objective of the study: the system can show more than 12 properties in Kalingalinga when spatial data are compared against the valuation roll.
 
-## Repository structure
+## This repository includes
+
+- valuation data loader
+- spatial comparison workflow
+- building footprint processing
+- amenity-based feature engineering
+- Gradient Boosting regression model
+- dashboard for property value prediction
+- API for model inference
+
+## Data expectations
+
+The project expects three main dataset types:
+
+### 1. Valuation roll CSV
+A CSV file containing at least the following columns:
+
+```csv
+property_id,latitude,longitude,valuation_value,property_type,land_area,building_area
+KAL_01,-15.3950,28.3230,760000,Residential,320,190
+KAL_02,-15.3960,28.3245,820000,Residential,350,210
+```
+
+### 2. Building footprints GeoJSON
+A polygon dataset representing structures in the pilot area.
+
+### 3. Amenity data GeoJSON
+A point dataset with amenities such as schools, markets, hospitals, roads, and other relevant facilities.
+
+## Sample Kalingalinga data included
+
+The repository includes a sample Kalingalinga dataset that demonstrates the gap-analysis workflow.
+
+### Sample valuation roll
+File: `data/sample/kalingalinga_valuation_roll.csv`
+
+### Sample building footprints
+File: `data/sample/kalingalinga_buildings.geojson`
+
+### Sample amenity data
+File: `data/sample/kalingalinga_amenities.geojson`
+
+## Kalingalinga valuation gap summary
+
+The sample scenario in this repository is based on the following interpretation:
+
+```text
+Recorded properties: 12
+Mapped properties in the area: 19
+Missing or unmatched properties: 7
+```
+
+Therefore, the system can report more than 12 properties in Kalingalinga after performing the spatial comparison.
+
+## Project structure
 
 ```text
 lusaka_property_valuation/
@@ -28,8 +74,6 @@ lusaka_property_valuation/
 ├── requirements.txt
 ├── config.py
 ├── dashboard.py
-├── scripts/
-│   └── train_model.py
 ├── backend/
 │   ├── __init__.py
 │   ├── data_loader.py
@@ -38,6 +82,8 @@ lusaka_property_valuation/
 │   ├── model.py
 │   ├── pipeline.py
 │   └── api.py
+├── scripts/
+│   └── train_model.py
 ├── data/
 │   └── sample/
 │       ├── kalingalinga_valuation_roll.csv
@@ -45,10 +91,13 @@ lusaka_property_valuation/
 │       └── kalingalinga_amenities.geojson
 ├── models/
 │   └── .gitkeep
-└── .gitignore
+├── .gitignore
+└── .venv/
 ```
 
-## Setup
+## Running the project
+
+### Install dependencies
 
 ```bash
 python -m venv .venv
@@ -56,45 +105,36 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Train the model
+### Train the model
 
 ```bash
 python scripts/train_model.py
 ```
 
-## Run the API
-
-```bash
-uvicorn backend.api:app --reload
-```
-
-Open:
-- http://127.0.0.1:8000/docs
-
-## Run the dashboard
+### Run the dashboard
 
 ```bash
 streamlit run dashboard.py
 ```
 
-## Demo scenario
+### Run the API
 
-The sample Kalingalinga dataset contains:
-- 12 recorded properties in the valuation roll
-- 19 mapped building footprints in the study area
-- 7 unmatched or missing properties identified by spatial comparison
+```bash
+uvicorn backend.api:app --reload
+```
 
-This means the system can show a total of more than 12 properties in Kalingalinga when the gap analysis is applied.
+Then open the API documentation at:
 
-## Expected outputs
+```text
+http://127.0.0.1:8000/docs
+```
 
-The model produces:
-- property value prediction for matched and missing properties
-- property gap summary
-- counts of identified properties versus recorded properties
-- valuation gap metrics
-- RMSE, MAE, MAPE, and R²
+## Academic interpretation of the model output
+
+The valuation-gap workflow supports the following interpretation:
+
+> The existing valuation roll contains 12 recorded properties. However, spatial comparison with mapped building footprints in the Kalingalinga pilot area identified 19 properties. The difference of 7 properties indicates that some properties were absent from the valuation roll and therefore not represented in the tax assessment database. This suggests that the current valuation records undercount the actual property stock in the area and may contribute to a reduction in municipal revenue collection.
 
 ## Notes
 
-This repository is designed as a working prototype for a thesis or municipal pilot project. For a real deployment, swap the sample data with actual Lusaka City Council valuation records and building-footprint layers.
+This repository is intended as a working prototype and demonstration of the valuation-gap logic for a thesis project. Replace the sample data with actual operating data from Lusaka City Council and geospatial sources when conducting the full study.
