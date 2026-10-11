@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -135,8 +136,14 @@ def page_gap():
     with col1:
         st.bar_chart(chart_df.set_index("Category"))
     with col2:
-        pie_df = pd.DataFrame({"Status": ["Officially recorded", "Missing from roll"], "Count": [recorded, gap]})
-        st.pie_chart(pie_df.set_index("Status"))
+        # Create pie chart using matplotlib
+        fig, ax = plt.subplots(figsize=(6, 4))
+        sizes = [recorded, gap]
+        labels = ["Officially recorded", "Missing from roll"]
+        colors = ["#2ecc71", "#e74c3c"]
+        ax.pie(sizes, labels=labels, autopct="%1.1f%%", colors=colors, startangle=90)
+        ax.set_title("Property Status Distribution")
+        st.pyplot(fig)
 
     st.markdown(
         """
