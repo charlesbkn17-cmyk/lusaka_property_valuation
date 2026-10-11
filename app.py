@@ -230,7 +230,7 @@ def page_architecture():
 
 def main():
     with st.sidebar:
-        st.image("https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=400&q=80", use_column_width=True)
+        st.image("https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=400&q=80", use_column_width="stretch".)
         st.title("Navigation")
         page = st.radio(
             "Choose section",
